@@ -1,0 +1,19 @@
+.payment{
+    max-width: 350px;
+    margin-left: 150px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.payment .btn {
+    color: black;
+    font-size: medium;
+    width: 80%;
+    margin-bottom: 15px;
+    padding: 5px;
+    margin-top: 10px;
+    background-color: #f0c14b;
+    border: 1px solid #a88734 #9c7e31 #846a29;
+  }
+  .enter{
+      font-size: 25px !important;
+  }

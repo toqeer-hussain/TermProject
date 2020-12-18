@@ -1,0 +1,44 @@
+.Star{ display: flex;
+   color: #f0c14b;
+}
+.product_info{
+margin-left: 15px;
+margin-top: 10px;
+}
+.Product{
+   display: flex;
+   flex-direction: column;
+    border: 1px solid gray;
+width: 100%;
+justify-content: space-between;
+    background-color: white;
+   border-radius: 5px;
+ margin:15px 7px;
+}
+
+.price{
+    display: flex;
+    align-items: center;
+}
+.price > small{
+margin-top: 2px;
+}
+
+.Product > img{
+    width: 100%;
+    object-fit: contain;
+    height: 350px;
+   margin-top: 10px;
+}
+.Product >button{
+    color: black;
+    font-size: large;
+   margin-left: auto;
+   margin-right: auto;
+    min-width: 150px;
+    margin-bottom: 15px;
+    padding: 5px;
+    margin-top: 10px;
+    background-color:#f0c14b;
+    border:1px solid #a88734 #9c7e31 #846a29;
+}

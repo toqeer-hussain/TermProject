@@ -1,0 +1,39 @@
+.Proceed > .Item {
+  background-color: teal;
+  font-size: 40px;
+  padding: 5px;
+  text-align: center;
+ font-size: 25px;
+  border: 1px solid black;
+}
+.Proceed h3{
+    font-size: 25px;
+}
+.Checkout_item{
+    margin-left: 150px;
+    width: 100%;
+    margin-right: auto;
+}
+.Proceed_Item {
+  display: flex;
+}
+.Proceed_Item > h3 {
+  margin-left: 10px;
+  padding: 5px;
+  font-size: 25px;
+}
+.Item{
+    color: white;
+}
+.Item >b{
+    color: #f0c14b;
+}
+.Proceed >h3{
+
+    margin-top: 15px;
+    margin-left: 15px;
+}
+.Proceed > hr{
+   background-color: teal;
+  height: 1px;
+}
