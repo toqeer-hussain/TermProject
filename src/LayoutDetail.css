@@ -1,0 +1,58 @@
+.imgSet{
+  object-fit: contain;
+  padding: 6px;
+    height: 260px;
+cursor: pointer;
+    transition: all 0.5s ;
+}
+.detailbtn{
+    width: 60%;
+    margin: auto;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.row{
+    display: flex;
+}
+.col-4{
+    width: 500px;
+    border-right: 1px solid gray;
+    margin-right: 15px;
+}
+.col-5{
+  margin-top: 25px;
+    width: 600px;
+}
+.imgdiv{
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+}
+.imgSet:hover{
+    transform: scale(1.05);
+    
+     
+}
+.outerdiv{
+    margin-top: 25px;
+    margin-left: 25px;
+   width: 500px;
+}
+.imgSet2{
+    cursor:pointer;
+    object-fit: contain;
+  /* margin-left: 5px; */
+  padding: 6px;
+    height: 80px;
+    transition: all 0.5s;
+}
+.imgSet2:hover{
+    transform: scale(1.2);
+}
+.Secondlist{
+    width: 80%;
+    display: flex;
+   margin-left: auto;
+   margin-right: auto;
+    justify-content:space-between;
+}

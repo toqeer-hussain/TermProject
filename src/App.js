@@ -20,6 +20,7 @@ import Login from "./Login";
 import { useStateValue } from "./StateProvider";
 import Forget from "./Forget";
 import PasswordReset from './PasswordReset';
+import LayoutDetail from './LayoutDetail';
 
 const promise = loadStripe(
   "pk_test_51HQ9l9Bl9xvRzSgF4XvG4gBXqc3CVKZInopwgCbk65afFSNC2PFY0jQEAhrheGkFJ7U9OeFABi1OnSbgjHfjddWQ00TX0dcQWl"
@@ -51,7 +52,7 @@ function App() {
       <div className="App ">
         <Switch>
           <Route exact path="/checkout">
-            {cart.length > 0 && user ? <Checkout /> : <Redirect to="/" />}
+            {cart.length > 0  ? <Checkout /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/login">
           <div className="Nav_left2">
@@ -68,9 +69,14 @@ function App() {
               <Login title="Register" />
             </div>
           </Route>
+
           <Route exact path="/order">
             <Nav />
             <Order />
+          </Route>
+          <Route path="/detail">
+          <Nav />
+          <LayoutDetail />
           </Route>
           <Route path="/proceed">
             <Nav />

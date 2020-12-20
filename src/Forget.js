@@ -24,6 +24,7 @@ function Forget() {
 
   return (
     <div>
+    <h2 style={{marginTop:"10px",borderTop:"3px solid #f0c14b",borderBottom:"3px solid #f0c14b",marginLeft:"80px",marginRight:"80px",padding:"15px",backgroundColor:"black",color:"white"}}>Recover Your Account</h2>
       <form>
         {Info ? (
           <h5 className="text-success">
@@ -32,8 +33,18 @@ function Forget() {
         ) : (
           <div>
             <h3 className="text-danger">{Error}</h3>
-            <div className="form-group col-6">
-              <label for="exampleInputEmail1">Email address</label>
+            <div className="form-group col-6" style={{
+                border:"1px solid teal",
+                padding:"40px",
+                boxShadow:" 0px 0px 0px 20px teal",
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  width: '500px',
+                transform:"translate(-50%,-50%)"}}>
+              <label for="exampleInputEmail1" style={{
+                fontSize:"25px"
+              }}>Email Address</label>
               <input
                 type="email"
                 className="form-control inp"
@@ -41,19 +52,21 @@ function Forget() {
                 value={Email}
                 onChange={(e) => setEmail(e.target.value)}
                 aria-describedby="emailHelp"
-                placeholder="Enter email"
+                placeholder="Enter your email"
               />
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
               </small>
-            </div>
-            <button
+                <button
+                style={{width:"90%",marginLeft:"auto",marginRight:"auto"}}
               type="submit"
               onClick={SendData}
               className="btn btn-primary"
             >
               Submit
             </button>
+            </div>
+          
           </div>
         )}
       </form>

@@ -208,13 +208,13 @@ const toggle = () => {
               style={{
                 border: "1px solid teal",
                 borderLeft: "none",
-                padding: "7px 6px",
-                paddingTop: "8px",
+                padding: "8px 6px",
+                paddingTop: "9px",
                 cursor:"pointer"
               }}
             >
-             {showhide ? <VisibilityIcon style={{ position: "relative ", top: "4px " }} />:
-            <VisibilityOffIcon  style={{ position: "relative ", top: "4px " }}/>}
+             {showhide ? <VisibilityIcon style={{ position: "relative ", top: "6px " }} />:
+            <VisibilityOffIcon  style={{ position: "relative ", top: "6px " }}/>}
             </small>
           </div>
           {!password && formsubmit && (
