@@ -3,7 +3,9 @@ import StarHalfIcon from "@material-ui/icons/StarHalf";
 import StarIcon from "@material-ui/icons/Star";
 import "./Product.css";
 import { useStateValue } from "./StateProvider";
+import { useHistory } from 'react-router-dom';
 function Product({ id, title, image, rate, price }) {
+  const history=useHistory()
   const [star, setstar] = useState([]);
   const [state, dispatch] = useStateValue();
   const handle = () => {
@@ -21,8 +23,13 @@ function Product({ id, title, image, rate, price }) {
       setstar((oldstate)=>([...oldstate,<StarHalfIcon />]));
     }
   }, []);
+
+const Detail=()=>{
+  history.push(`/detail/${id}`)
+}
+
   return (
-    <div className="Product">
+    <div className="Product" style={{cursor:"pointer"}} onClick={Detail}>
       <div className="product_info">
         <h2>{title}</h2>
         <h4 className="Star">{star}</h4>

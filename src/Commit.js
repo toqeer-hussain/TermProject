@@ -15,7 +15,7 @@ function Commit() {
   const [serverdata, setserverdata] = useState([]);
   useEffect(() => {
     setstate('');
-  axios.get('http://localhost:5000/').then(data=>console.log(data)).catch(e=>console.log(e))
+  // axios.get('http://localhost:5000/').then(data=>console.log(data)).catch(e=>console.log(e))
     return () => {};
   }, []);
   socket.on('message',(message)=>{

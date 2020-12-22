@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -8,6 +8,7 @@ import {
   useHistory,
   Redirect,
 } from "react-router-dom";
+import axios from 'axios';
 import Nav from "./Nav";
 import Product from "./Product";
 import Checkout from "./Checkout";
@@ -27,26 +28,22 @@ const promise = loadStripe(
 );
 function App() {
   const [{ cart,user }, dispatch] = useStateValue();
+  const [product, setproduct] = useState([]);
   const history = useHistory();
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       dispatch({
-  //         type: "SET_USER",
-  //         user: user,
-  //       });
-  //     } else {
-  //       dispatch({
-  //         type: "SET_USER",
-  //         user: null,
-  //       });
-  //     }
-  //   });
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
-  console.log("Cart length", cart.length);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/product').then((d)=>
+    { 
+      // console.log("from server",d.data[0].Image[0].imgkey)
+     
+      d.data.map(item=>{
+        setproduct((oldstate)=>([...oldstate,item]))
+      })
+    }
+      ) .catch(e=>console.log(e))
+  }, []);
+  // console.log("Image",product)
+  // console.log("Cart length", cart.length);
   return (
     <Router>
       <div className="App ">
@@ -74,7 +71,7 @@ function App() {
             <Nav />
             <Order />
           </Route>
-          <Route path="/detail">
+          <Route path="/detail/:productid">
           <Nav />
           <LayoutDetail />
           </Route>
@@ -95,15 +92,9 @@ function App() {
           <Route path="/">
             <Nav />
 
+            
             <div className="product_row animate__backInRight">
-              <Product
-                id="1"
-                key={1}
-                title="The most popular loud speaker: (3 Generation ) with noise cancelation "
-                image="https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                rate={4.5}
-                price={50.12}
-              />
+             
 
               <Product
                 id="2"
@@ -158,8 +149,19 @@ function App() {
                 image="https://images.pexels.com/photos/1595243/pexels-photo-1595243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                 rate={5}
                 price={550.12}
-              />
+              /> {
+                
+              product?.map((item,index)=>
+                <Product
+              id={item._id}
+              key={item._id}
+              title={item.ProductName}
+              image={`http://localhost:5000/${item.Image[0].imgkey}`}
+              rate={item.Rating}
+              price={item.Price}
+            />)}
             </div>
+           
           </Route>
         </Switch>
       </div>
