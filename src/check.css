@@ -2,7 +2,7 @@
     display: flex;
 
 }
-.checkoutitem >h2,hr{
+.checkoutitem >h3,hr{
 margin: 15px;
 }
 .checkoutitem {
@@ -10,9 +10,11 @@ margin: 15px;
     
 
 }
-.checkoutitem > h2{
-    background-color: teal;
+.checkoutitem > h3{
+    background-color: rgb(0, 0, 0);
     color: #f0c14b;
-     border: 1px solid black;
-    padding: 10px;
+    border-top: 3px solid  #f0c14b;
+    border-bottom: 3px solid  #f0c14b;
+     /* border: 1px solid black; */
+    padding: 12px;
 }

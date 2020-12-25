@@ -3,9 +3,11 @@
   flex: 0.2;
   display: flex;
   min-width: 350px;
-background-color: teal;
+background-color: black;
   flex-direction: column;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border-top: 3px solid  #f0c14b;
+    border-bottom: 3px solid  #f0c14b;
 min-height: 170px;
   margin-top: 15px;
   max-width: 350px;

@@ -17,7 +17,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import ProceedToCheckout from "./ProceedToCheckout";
 import Order from "./Order";
 import Login from "./Login";
-// import { auth } from "./Firebase";
+
 import { useStateValue } from "./StateProvider";
 import Forget from "./Forget";
 import PasswordReset from './PasswordReset';
@@ -63,13 +63,13 @@ function App() {
             <div className="login_set">
             
               <Login title="Login"  />
-              <Login title="Register" />
+             { 
+              !user && <Login title="Register" />}
             </div>
           </Route>
 
-          <Route exact path="/order">
-            <Nav />
-            <Order />
+          <Route exact path="/order">{
+            user ? <div> <Nav />  <Order /></div>:<Redirect to="/login" />}
           </Route>
           <Route path="/detail/:productid">
           <Nav />
@@ -77,9 +77,9 @@ function App() {
           </Route>
           <Route path="/proceed">
             <Nav />
-            {cart.length > 0 ?   <Elements stripe={promise}>
+            {cart.length > 0 && user ?   <Elements stripe={promise}>
               <ProceedToCheckout />
-            </Elements> : <Redirect to="/" />}
+            </Elements> : <Redirect to="/login" />}
           
           </Route>
 

@@ -6,19 +6,23 @@
   width: 100%;
   justify-content: space-between;
 }
+.forhover{
+  color: rgb(202, 191, 191)
+}
 
 .Nav_right {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  flex: 0.2;
+  flex: 0.3;
 }
 .Nav_center {
   display: flex;
   align-items: center;
   margin-right: 25px;
-
-  flex: 0.6;
+text-align: center;
+justify-content: center;
+  flex: 0.4;
 }
 .Nav_left {
   flex: 0.2;
@@ -79,3 +83,6 @@ h3 {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+.forhover:hover{
+  color: white;
+  }

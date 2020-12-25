@@ -5,7 +5,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import  Currencyformat  from "react-currency-format";
-import {db} from './Firebase';
+
 
 function Payment() {
   const history = useHistory();
@@ -14,27 +14,28 @@ function Payment() {
   const [disabled, setdisabled] = useState(true);
   const [succeed, setsucceed] = useState(false);
   const [client, setclient] = useState(null);
+  const [add, setadd] = useState('')
 
   const stripe = useStripe();
   const elements = useElements();
   const [{ cart }, dispatch] = useStateValue();
   const getCartTotal = () => {
     let sum = 0;
-    cart.map((item) => (sum = sum + item.price));
+    cart.map((item) => (sum = sum + (item.price*item.quantity)));
     return sum;
   };
   useEffect(() => {
     const getCartTotal = () => {
       let sum = 0;
-      cart.map((item) => (sum = sum + item.price));
+      cart.map((item) => (sum = sum + (item.price*item.quantity)));
       return sum;
     };
 
     const getclient = async () => {
     
-        const endpoint='http://localhost:5001/clone-a55f8/us-central1/api'
+      
       const response = await axios.post(
-         `${endpoint}/payment/create?total=${getCartTotal() * 100}`,
+         `http://localhost:5000/payment/create?total=${getCartTotal() * 100}`,
       );
       setclient(response.data.clientsecret);
     };
@@ -59,19 +60,24 @@ console.log(" your new created client is +>>>>>>>",client);
       })
       .then(({ paymentIntent }) => {
         console.log("PAyment id",paymentIntent)
-db.collection('order').doc(paymentIntent?.id).set({
-    cart:cart,
+        axios.post('http://localhost:5000/store/payment',{
     amount:paymentIntent.amount,
     created:paymentIntent.created,
-})
-
-          dispatch({
+    Shippingaddress:add})
+    .then(d=>
+      {console.log(d)
+    dispatch({
               type:'EMPATY_CART',
           })
         setprocessing(false);
         setsucceed(true);
         seterror(null);
         history.replace("/order");
+    
+        }).catch(e=>console.log(e))
+
+
+          
       });
   };
 
@@ -85,6 +91,8 @@ db.collection('order').doc(paymentIntent?.id).set({
     <div className="payment">
     {getCartTotal() > 0?
       <form onSubmit={handleSubmit}>
+      <label>Enter your address</label>
+      <input type="text"  className="inp" value={add} onChange={(e)=>setadd(e.target.value)} placeholder="Enter your address"/>
         <Currencyformat
           renderText={(value) => (
             <div className="subtotal_info">

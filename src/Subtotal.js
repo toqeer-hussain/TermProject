@@ -7,7 +7,7 @@ function Subtotal() {
   const [{ cart }, dispatch] = useStateValue();
   const getCartTotal = () => {
     let sum = 0;
-     cart.map((item) => (sum = sum + item.price));
+     cart?.map((item) => (sum = sum + (item?.price*item.quantity)));
     return sum;
   };
   return (
@@ -15,7 +15,7 @@ function Subtotal() {
       <Currencyformat
         renderText={(value) => (
           <div className="subtotal_info">
-            <p>Subtotal ({cart.length} item) : <small>{value}</small></p>
+            <p>Subtotal ({cart?.length} item) : <small>{value}</small></p>
             <small>
             <input type="checkbox" />
             This order contains some gift

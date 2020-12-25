@@ -4,24 +4,28 @@ import StarIcon from "@material-ui/icons/Star";
 import "./Product.css";
 import { useStateValue } from "./StateProvider";
 import { useHistory } from 'react-router-dom';
+import axios  from 'axios';
 function Product({ id, title, image, rate, price }) {
   const history=useHistory()
   const [star, setstar] = useState([]);
-  const [state, dispatch] = useStateValue();
+  const [{cart}, dispatch] = useStateValue();
   const handle = () => {
+    
     dispatch({
-      cart: { id: id, title: title, image: image, rate: rate, price: price ,update:true },
+      cart: { id: id,productname:title,quantity:1 ,price:price,Image:image,Rating:rate },
       type: "ITEM_ADD",
     });
-  };
+
+  }
   useEffect(() => {
+    if(star?.length==0){
     for (let i = 0; i < Math.floor(rate); i++) {
       
       setstar((oldstate)=>([...oldstate,<StarIcon />]));
     }
     if (rate % 1 === 0.5) {
       setstar((oldstate)=>([...oldstate,<StarHalfIcon />]));
-    }
+    }}
   }, []);
 
 const Detail=()=>{
@@ -29,7 +33,7 @@ const Detail=()=>{
 }
 
   return (
-    <div className="Product" style={{cursor:"pointer"}} onClick={Detail}>
+    <div className="Product"  >
       <div className="product_info">
         <h2>{title}</h2>
         <h4 className="Star">{star}</h4>
@@ -38,7 +42,7 @@ const Detail=()=>{
           <small>$</small>
         </h2>
       </div>
-      <img src={image} />
+      <img src={image} onClick={Detail} style={{cursor:"pointer"}}/>
       <button onClick={handle}> Add to cart</button>
     </div>
   );

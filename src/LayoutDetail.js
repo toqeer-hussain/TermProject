@@ -6,6 +6,7 @@ import Commit from './Commit';
 import { useEffect } from 'react';
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 import StarIcon from "@material-ui/icons/Star";
+import { useStateValue } from "./StateProvider";
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,6 +21,7 @@ const {productid}=useParams();
 
 const [product, setproduct] = useState(null);
     const [openmodal, setopenmodal] = useState(false)
+    const [{cart}, dispatch] = useStateValue();
     const [value, setvalue] = useState(0)
     const [star, setstar] = useState([]);
   useEffect(() => {
@@ -28,21 +30,29 @@ const [product, setproduct] = useState(null);
       d=>{console.log("data",d.data)
       
       setproduct(d.data)
-      let rating=product.Rating
-      console.log("Rating",product?.Rating)
-      for (let i = 0; i < Math.floor(rating); i++) {
+      let rating=product?.Rating
+      console.log("Rating",rating)
+      if(star?.length==0){
+      for (let i = 0; i < Math.floor(d?.data?.Rating); i++) {
       
         setstar((oldstate)=>([...oldstate,<StarIcon />]));
     }
-    if (rating % 1 === 0.5) {
+    if (d?.data?.Rating % 1 === 0.5) {
       setstar((oldstate)=>([...oldstate,<StarHalfIcon />]));
-    }
+    }}
       }
     ).catch(e=>console.log(e))
 
    
 
   }, [])
+  const handle = () => {
+    
+    dispatch({
+      cart: { id: product._id,productname:product.ProductName,quantity:1 ,price:product.Price,Image:`http://localhost:5000/${product.Image[0].imgkey}`,Rating:product.Rating },
+      type: "ITEM_ADD",
+    });
+  }
 
 
     return (
@@ -69,15 +79,15 @@ const [product, setproduct] = useState(null);
             
            <div className="col-5 d-block border border-black">
            <h2 style={{marginTop:"5px",marginBottom:"5px"}}>{product?.ProductName}</h2>
-           <h3>Price <small>$</small>{product?.Price}</h3>
+           <h3>Price <small style={{fontSize:"20px"}}>$</small>{product?.Price}</h3>
            <h5 style={{ display:"flex",
             color: "#f0c14b"
-         }} >{Math.floor(product?.Rating)?.map(item=><StarIcon />)
+         }} >{star
         }</h5>
            
            <p style={{textAlign:"justify",marginTop:"5px"}}>
            {product?.Description}
-           </p><button className="btn detailbtn btn-success"  >
+           </p><button className="btn detailbtn btn-success" onClick={handle} >
         Add To Cart
       </button>
            </div>

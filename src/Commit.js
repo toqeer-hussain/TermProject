@@ -2,25 +2,32 @@ import React from "react";
 import './Commit.css'
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-
+import { useStateValue } from "./StateProvider";
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 import Messagebody from "./Messagebody";
 
-var socket = io.connect("http://localhost:5000/");
-let classes=makeStyles();
+var socket = io.connect("http://localhost:5000");
+// let classes=makeStyles();
 function Commit() {
   const [state, setstate] = useState(null);
   const [data, setdata] = useState(null);
   const [serverdata, setserverdata] = useState([]);
+  const [{cart,user}, dispatch] = useStateValue();
   useEffect(() => {
     setstate('');
-  // axios.get('http://localhost:5000/').then(data=>console.log(data)).catch(e=>console.log(e))
-    return () => {};
-  }, []);
+  axios.get('http://localhost:5000/Commit').then(data=>{console.log("messaft ",data.data)
+data.data.map(item=>setserverdata((oldstate)=>[...oldstate,item]))
+
+}).catch(e=>console.log(e))
+  }, [serverdata]);
+
+// console.log("final ",serverdata)
+
+
   socket.on('message',(message)=>{
-   
-    setserverdata([...serverdata,message.message])
+   console.log("message type", message)
+    setserverdata([...serverdata,message])
     // console.log("client",message.message)
     // console.log("SERverdat::",serverdata)
 })
@@ -29,19 +36,8 @@ function Commit() {
     e.preventDefault();
     e.target.previousElementSibling.value=""
    document.getElementsByClassName('data')
-    // console.log("intodata", data);
-    // console.log("into user", state);
-    socket.emit('message',{ message: data, user: state })
-    if (data) {
-    //   axios
-    //     .post("http://localhost:5000/data", { message: data, user: state })
-    //     .then((data) => {
-    //       console.log("data from server", data.data);
-    //       setserverdata(data.data);
-    //     })
-    //     .catch((e) => console.log(e));
-        
-    }
+    socket.emit('message',{ message: data, user: user ? user:"Anonymous" })
+   
   }
   return (
     <div className="container">
@@ -60,12 +56,14 @@ function Commit() {
       <button className="btn btn-success"  onClick={get_data}>
         Send
       </button>
-
-      <Messagebody/>
-      <Messagebody/>
-      <Messagebody/>
+     { serverdata.map((item,index)=>
+      { if(index<10)
+         return <Messagebody user={item.User} message={item.Message}/>})
+       }
+      
     </div>
   );
 }
 
 export default Commit;
+ 

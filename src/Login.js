@@ -3,9 +3,10 @@ import "./login.css";
 import { Route,Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-// import { auth } from "./firebase";
+
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 
@@ -17,6 +18,7 @@ function Login({ title }) {
   const [passworderror, setpassworderror] = useState(false);
   const [showhide, setshowhide] = useState(true);
   const [formsubmit, setformsubmit] = useState(false);
+  const [server, setserver] = useState(false)
   const [Email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [UserName, setUserName] = useState("");
@@ -58,11 +60,14 @@ useEffect(() => {
         })
         .then((response) => {
           console.log("Registor User", response.data);
-
+  if(response.data.Email=="Email Already exist!")
+  {
+setserver(true)
+  }else{
           setEmail("");
           setpassword("");
           setUserName("");
-          
+  }  
           history.push("/Login");
         })
         .catch((e) => console.log("Error", e));
@@ -91,6 +96,7 @@ useEffect(() => {
   };
 
   const login = (e) => {
+    setserver(false)
     e.preventDefault();
     if (!UserName && !Email) {
       setformsubmit(true);
@@ -112,16 +118,25 @@ useEffect(() => {
           password,
         })
         .then((response) => {
-          console.log("Registor User", response.data);
+          console.log("freom dknfsd",response.data)
+          if(response.data.invalid=="Invalid Credential")
+          {
+        setserver(true)
+          }else{      console.log("freom dknfsd",response.data)
+                  setEmail("");
+                  setpassword("");
+                  setUserName("");
+          
 
           setEmail("");
           setpassword("");
-          axios.defaults.headers.common['Authorization-token'] = response.data;
+          axios.defaults.headers.common['Authorization-token'] = response.data.token;
           dispatch({
             type: "SET_USER",
-            user: response.data,
+            user: response.data.user.UserName,
           });
-          history.push("/");
+
+          history.goBack();}
         })
         .catch((e) => console.log("Error", e));
 
@@ -142,6 +157,8 @@ const toggle = () => {
     <div className="big">
       <div className="Container">
         <h3>{title}</h3>
+       { title == "Login" && server && <h4 style={{ display: "block", color: "#f44336" }}>Invalid Credential</h4>}
+       {title == "Register" && server && <h4 style={{ display: "block", color: "#f44336" }}>Email Already exist!</h4>}
         <form>
           {title == "Register" && (
             <div>
