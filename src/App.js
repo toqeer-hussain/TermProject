@@ -151,15 +151,30 @@ function App() {
                 price={550.12}
               /> {
                 
-              product?.map((item,index)=>
-                <Product
+              product?.map((item,index)=>{
+              {index<2  &&
+              <div className="product_row"> <Product
               id={item._id}
               key={item._id}
               title={item.ProductName}
               image={`http://localhost:5000/${item.Image[0].imgkey}`}
               rate={item.Rating}
               price={item.Price}
-            />)}
+            /></div>}{
+            (index>2 && index<5) &&  <div className="product_row"> <Product
+            id={item._id}
+            key={item._id}
+            title={item.ProductName}
+            image={`http://localhost:5000/${item.Image[0].imgkey}`}
+            rate={item.Rating}
+            price={item.Price}
+          /></div>}
+
+            
+            
+            
+              }
+            )}
             </div>
            
           </Route>

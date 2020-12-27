@@ -48,6 +48,7 @@ useEffect(() => {
       emailpattern.test(Email) &&
       passwordpattern.test(password)
     ) {
+      setserver(false)
       setusererror(false);
       setemailerror(false);
       setpassworderror(false);
@@ -59,16 +60,18 @@ useEffect(() => {
           UserName,
         })
         .then((response) => {
-          console.log("Registor User", response.data);
+        
   if(response.data.Email=="Email Already exist!")
   {
 setserver(true)
-  }else{
+  }else{  console.log("Registor User", response.data);
           setEmail("");
           setpassword("");
           setUserName("");
+          setserver(false)
+           history.push("/Login");
   }  
-          history.push("/Login");
+         
         })
         .catch((e) => console.log("Error", e));
     } else {

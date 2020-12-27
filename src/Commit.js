@@ -12,31 +12,32 @@ var socket = io.connect("http://localhost:5000");
 function Commit() {
   const [state, setstate] = useState(null);
   const [data, setdata] = useState(null);
+  const [msg, setmsg] = useState([])
   const [serverdata, setserverdata] = useState([]);
   const [{cart,user}, dispatch] = useStateValue();
   useEffect(() => {
     setstate('');
   axios.get('http://localhost:5000/Commit').then(data=>{console.log("messaft ",data.data)
-data.data.map(item=>setserverdata((oldstate)=>[...oldstate,item]))
+data.data.map(item=>setmsg((oldstate)=>[...oldstate,item]))
 
 }).catch(e=>console.log(e))
-  }, [serverdata]);
+  }, []);
 
 // console.log("final ",serverdata)
 
 
-  socket.on('message',(message)=>{
+  socket.once('result',({message})=>{
    console.log("message type", message)
-    setserverdata([...serverdata,message])
+    setmsg([...msg,message])
     // console.log("client",message.message)
-    // console.log("SERverdat::",serverdata)
+    console.log("SERverdat::",msg)
 })
 
   function get_data(e) {
     e.preventDefault();
     e.target.previousElementSibling.value=""
    document.getElementsByClassName('data')
-    socket.emit('message',{ message: data, user: user ? user:"Anonymous" })
+    socket.emit('message',{ Message: data, User: user ? user:"Anonymous" })
    
   }
   return (
@@ -56,10 +57,10 @@ data.data.map(item=>setserverdata((oldstate)=>[...oldstate,item]))
       <button className="btn btn-success"  onClick={get_data}>
         Send
       </button>
-     { serverdata.map((item,index)=>
-      { if(index<10)
-         return <Messagebody user={item.User} message={item.Message}/>})
+     { msg?.reverse().map((item,index)=>
+     <Messagebody user={item.User} message={item.Message}/>)
        }
+       <hr></hr>
       
     </div>
   );
