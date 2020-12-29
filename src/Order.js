@@ -56,7 +56,7 @@ let ODLIST=[]
             <h3 style={{width:"80%",marginRight:"auto",marginLeft:"auto",marginTop:"10px",marginBottom:"10px"}}>OrderID :{item._id}</h3>
  <h4 style={{width:"80%",marginRight:"auto",marginLeft:"auto",marginTop:"10px",marginBottom:"10px"}}>
  Status :{item.status}</h4>    
- <h4  style={{width:"80%",marginRight:"auto",marginLeft:"auto",marginTop:"10px",marginBottom:"10px"}}>Placed Date :{item.Date}</h4> 
+ <h4  style={{width:"80%",marginRight:"auto",marginLeft:"auto",marginTop:"10px",marginBottom:"10px"}}>Placed Date :{item.Orderdate}</h4> 
             <table className="tab1"> 
       <thead>
          <tr style={{border:"1px solid"}}>
