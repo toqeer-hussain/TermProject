@@ -3,6 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import axios from 'axios'
+import {initialState} from './reducer'
 function PasswordReset() {
   const history = useHistory();
   const location = useLocation();
@@ -18,7 +19,7 @@ function PasswordReset() {
   const SendData = (e) => {
     e.preventDefault()
     axios
-      .post(`http://localhost:5000${location.pathname}`, { Password })
+      .post(`${initialState.baseUrl}${location.pathname}`, { Password })
       .then((response) => {
         if (response.data) {
           console.log(" User new Password", response.data);

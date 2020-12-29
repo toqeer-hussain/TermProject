@@ -12,7 +12,7 @@ import { useStateValue } from "./StateProvider";
 
 function Login({ title }) {
   const history = useHistory();
-  const [{ cart,user }, dispatch] = useStateValue();
+  const [{ cart,user,baseUrl }, dispatch] = useStateValue();
   const [usererror, setusererror] = useState(false);
   const [emailerror, setemailerror] = useState(false);
   const [passworderror, setpassworderror] = useState(false);
@@ -20,6 +20,7 @@ function Login({ title }) {
   const [formsubmit, setformsubmit] = useState(false);
   const [server, setserver] = useState(false)
   const [Email, setEmail] = useState("");
+  const [success, setsuccess] = useState(false)
   const [password, setpassword] = useState("");
   const [UserName, setUserName] = useState("");
 
@@ -54,7 +55,7 @@ useEffect(() => {
       setpassworderror(false);
       console.log(UserName, Email, password);
       axios
-        .post("http://localhost:5000/registration", {
+        .post(`${baseUrl}/registration`, {
           Email,
           password,
           UserName,
@@ -64,12 +65,21 @@ useEffect(() => {
   if(response.data.Email=="Email Already exist!")
   {
 setserver(true)
-  }else{  console.log("Registor User", response.data);
-          setEmail("");
+  }else{ 
+    setsuccess(true);
+     console.log("Registor User", response.data);
+     
+      if(response.data) 
+     { setEmail("");
           setpassword("");
           setUserName("");
           setserver(false)
-           history.push("/Login");
+          setTimeout(()=>{
+setsuccess(false)
+          },1000)
+          
+           history.push("/Login");}
+         
   }  
          
         })
@@ -80,7 +90,7 @@ setserver(true)
     }
   };
   const ValueValidate = () => {
-    console.log("Called")
+    // console.log("Called")
     if (!userNamepattern.test(UserName) || !UserName) {
       setusererror(true);
     } else {
@@ -92,6 +102,7 @@ setserver(true)
       setemailerror(false);
     }
     if (!passwordpattern.test(password) || !password) {
+     
       setpassworderror(true);
     } else {
       setpassworderror(false);
@@ -116,7 +127,7 @@ setserver(true)
       setemailerror(false);
       setpassworderror(false);
       axios
-        .post("http://localhost:5000/login", {
+        .post(`${baseUrl}/login`, {
           Email,
           password,
         })
@@ -139,7 +150,7 @@ setserver(true)
             user: response.data.user.UserName,
           });
 
-          history.goBack();}
+          history.push('/');}
         })
         .catch((e) => console.log("Error", e));
 
@@ -161,6 +172,7 @@ const toggle = () => {
       <div className="Container">
         <h3>{title}</h3>
        { title == "Login" && server && <h4 style={{ display: "block", color: "#f44336" }}>Invalid Credential</h4>}
+       { title == "Register" && success && <h4 style={{ display: "block", color: "green" }}>User Register Successfull !</h4>}
        {title == "Register" && server && <h4 style={{ display: "block", color: "#f44336" }}>Email Already exist!</h4>}
         <form>
           {title == "Register" && (
@@ -186,8 +198,8 @@ const toggle = () => {
               >
                 <li>Username length must be greater than 6</li>
                 <li>
-                  UserName Contain atleast one uppercase,one lowercase ,one
-                  number
+                  UserName Contain atleast one uppercase letter,one lowercase letter and one
+                  number digit
                 </li>
               </ul>
             </div>

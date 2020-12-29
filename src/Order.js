@@ -8,6 +8,7 @@ import CheckoutItem from './CheckoutItem';
 import axios from 'axios'
 import { useStateValue } from './StateProvider';
 // { image, id, price, title, rate }
+import {initialState} from './reducer'
 
 function Order() {
 const [cart, setcart] = useState([])
@@ -15,7 +16,7 @@ const [order, setorder] = useState([])
 const [orderid, setorderid] = useState([])
 const [price, setprice] = useState([])
     useEffect(() =>{
-        axios.get('  http://localhost:5000/order').then(d=>{
+        axios.get( `${initialState.baseUrl}/order`).then(d=>{
             console.log(d.data);
         console.log("order",d.data.order)
     d.data.order.map(item=>setorder((oldstate)=>[...oldstate,item]))
@@ -53,7 +54,8 @@ let ODLIST=[]
         {order.map(item=>{
            return <div>
             <h3 style={{width:"80%",marginRight:"auto",marginLeft:"auto",marginTop:"10px",marginBottom:"10px"}}>OrderID :{item._id}</h3>
- <h4 style={{width:"80%",marginRight:"auto",marginLeft:"auto",marginTop:"10px",marginBottom:"10px"}}>Status :{item.status}</h4>    
+ <h4 style={{width:"80%",marginRight:"auto",marginLeft:"auto",marginTop:"10px",marginBottom:"10px"}}>
+ Status :{item.status}</h4>    
  <h4  style={{width:"80%",marginRight:"auto",marginLeft:"auto",marginTop:"10px",marginBottom:"10px"}}>Placed Date :{item.Date}</h4> 
             <table className="tab1"> 
       <thead>

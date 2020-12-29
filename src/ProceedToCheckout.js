@@ -5,10 +5,10 @@ import "./ProceedToCheckOut.css";
 import axios from 'axios'
 import Payment from './Payment';
 function ProceedToCheckout() {
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ cart ,baseUrl}, dispatch] = useStateValue();
 
   useEffect(() => {
-    axios.post("http://localhost:5000/Cart",{cartdata:cart}).then(d=>console.log(d)).catch(e=>console.log(e))
+    axios.post(`${baseUrl}/Cart`,{cartdata:cart}).then(d=>console.log(d)).catch(e=>console.log(e))
    
   }, [])
   

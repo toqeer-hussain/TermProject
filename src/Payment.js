@@ -15,10 +15,10 @@ function Payment() {
   const [succeed, setsucceed] = useState(false);
   const [client, setclient] = useState(null);
   const [add, setadd] = useState('')
-
+const [success, setsuccess] = useState('')
   const stripe = useStripe();
   const elements = useElements();
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ cart ,baseUrl}, dispatch] = useStateValue();
   const getCartTotal = () => {
     let sum = 0;
     cart.map((item) => (sum = sum + (item.price*item.quantity)));
@@ -35,7 +35,7 @@ function Payment() {
     
       
       const response = await axios.post(
-         `http://localhost:5000/payment/create?total=${getCartTotal() * 100}`,
+         `${baseUrl}/payment/create?total=${getCartTotal() * 100}`,
       );
       setclient(response.data.clientsecret);
     };
@@ -60,7 +60,7 @@ console.log(" your new created client is +>>>>>>>",client);
       })
       .then(({ paymentIntent }) => {
         console.log("PAyment id",paymentIntent)
-        axios.post('http://localhost:5000/store/payment',{
+        axios.post(`${baseUrl}/store/payment`,{
     amount:paymentIntent.amount,
     created:paymentIntent.created,
     Shippingaddress:add})
@@ -69,9 +69,13 @@ console.log(" your new created client is +>>>>>>>",client);
     dispatch({
               type:'EMPATY_CART',
           })
+          setsuccess(true);
         setprocessing(false);
         setsucceed(true);
         seterror(null);
+        setTimeout(()=>{
+          setsuccess(false)
+                    },1000)
         history.replace("/order");
     
         }).catch(e=>console.log(e))
@@ -112,6 +116,7 @@ console.log(" your new created client is +>>>>>>>",client);
       </form>
       :""}
       <div>{error && error}</div>
+      {  success && <h4 style={{ display: "block", color: "green" }}>User Register Successfull !</h4>}
     </div>
   );
 }

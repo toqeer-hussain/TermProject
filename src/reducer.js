@@ -1,5 +1,5 @@
 export const initialState = {
-  baseUrl:"http://localhost:5000",
+  baseUrl:"https://sp18-bse-026backend.herokuapp.com",
   cart: [],
   user:null
 };

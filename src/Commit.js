@@ -6,18 +6,18 @@ import { useStateValue } from "./StateProvider";
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 import Messagebody from "./Messagebody";
-
-var socket = io.connect("http://localhost:5000");
+import {initialState} from './reducer'
+var socket = io.connect(`${initialState.baseUrl}`);
 // let classes=makeStyles();
 function Commit() {
   const [state, setstate] = useState(null);
   const [data, setdata] = useState(null);
   const [msg, setmsg] = useState([])
   const [serverdata, setserverdata] = useState([]);
-  const [{cart,user}, dispatch] = useStateValue();
+  const [{cart,user,baseUrl}, dispatch] = useStateValue();
   useEffect(() => {
     setstate('');
-  axios.get('http://localhost:5000/Commit').then(data=>{console.log("messaft ",data.data)
+  axios.get(`${baseUrl}/Commit`).then(data=>{console.log("messaft ",data.data)
 data.data.map(item=>setmsg((oldstate)=>[...oldstate,item]))
 
 }).catch(e=>console.log(e))

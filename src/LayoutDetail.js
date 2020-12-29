@@ -21,12 +21,12 @@ const {productid}=useParams();
 
 const [product, setproduct] = useState(null);
     const [openmodal, setopenmodal] = useState(false)
-    const [{cart}, dispatch] = useStateValue();
+    const [{cart,baseUrl}, dispatch] = useStateValue();
     const [value, setvalue] = useState(0)
     const [star, setstar] = useState([]);
   useEffect(() => {
     console.log("product id",productid)
-    axios.get(`http://localhost:5000/detail/${productid}`).then(
+    axios.get(`${baseUrl}/detail/${productid}`).then(
       d=>{console.log("data",d.data)
       
       setproduct(d.data)
@@ -49,7 +49,7 @@ const [product, setproduct] = useState(null);
   const handle = () => {
     
     dispatch({
-      cart: { id: product._id,productname:product.ProductName,quantity:1 ,price:product.Price,Image:`http://localhost:5000/${product.Image[0].imgkey}`,Rating:product.Rating },
+      cart: { id: product._id,productname:product.ProductName,quantity:1 ,price:product.Price,Image:`${baseUrl}/${product.Image[0].imgkey}`,Rating:product.Rating },
       type: "ITEM_ADD",
     });
   }
@@ -65,13 +65,13 @@ const [product, setproduct] = useState(null);
            
             <div className="imgdiv">
             <img  className="imgSet" onClick={()=>
-            {setopenmodal(true);setvalue(0)}}  src={`http://localhost:5000/${product?.Image[0].imgkey}`}/> 
+            {setopenmodal(true);setvalue(0)}}  src={`${baseUrl}/${product?.Image[0].imgkey}`}/> 
             </div> <div className="Secondlist">
             {product?.Image.map((item,index)=>
               index!==0 ?
             
             <img  className="imgSet2" onClick={()=>
-                {setopenmodal(true);setvalue(index)}}  src={`http://localhost:5000/${ item.imgkey}`}/> 
+                {setopenmodal(true);setvalue(index)}}  src={`${baseUrl}/${ item.imgkey}`}/> 
           
             
             :"")}</div>
@@ -100,22 +100,22 @@ const [product, setproduct] = useState(null);
           
           value=='0' && <div className="mySlides">
             <div className="numbertext">1 / 4</div>
-            <img src={`http://localhost:5000/${ product?.Image[0].imgkey}`} style={{width:"100%"}} />
+            <img src={`${baseUrl}/${ product?.Image[0].imgkey}`} style={{width:"100%"}} />
           </div>}
       
          {  value=="1" && <div className="mySlides">
             <div className="numbertext">2 / 4</div>
-            <img src={`http://localhost:5000/${ product?.Image[1].imgkey}`} style={{width:"100%"}} />
+            <img src={`${baseUrl}/${ product?.Image[1].imgkey}`} style={{width:"100%"}} />
           </div>}
       
          { value=="2" && <div className="mySlides">
             <div className="numbertext">3 / 4</div>
-            <img src={`http://localhost:5000/${ product?.Image[2].imgkey}`} style={{width:"100%"}} />
+            <img src={`${baseUrl}/${ product?.Image[2].imgkey}`} style={{width:"100%"}} />
           </div>}
       
           {value=="3" &&<div className="mySlides">
             <div className="numbertext">4 / 4</div>
-            <img src={`http://localhost:5000/${ product?.Image[3].imgkey}`} style={{width:"100%"}} />
+            <img src={`${baseUrl}/${ product?.Image[3].imgkey}`} style={{width:"100%"}} />
           </div>}
       
           <a className="prev" onClick={()=>{value=="0" ?setvalue(3):setvalue(parseInt(value)-1)}}>&#10094;</a>

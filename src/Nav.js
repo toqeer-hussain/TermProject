@@ -18,10 +18,9 @@ function Nav() {
   }
   return (
     <div className="Nav">
-      <Link to="/"> 
+      <Link style={{textDecoration:"none"}} to="/"> 
       <div className="Nav_left">
-     
-        <img src="http://pngimg.com/uploads/amazon/amazon_PNG11.png" />
+     <h3 style={{fontSize:"25px",marginLeft:"25px"}}>E-Com</h3>
       </div></Link>
       <div className="Nav_center" fontSize="inherit">
        {user && <h5 style={{color: "rgb(202, 191, 191)",fontSize:"20px"}}>Hello,{user}</h5>}
