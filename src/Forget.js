@@ -14,6 +14,7 @@ function Forget() {
       .then((response) => {
         console.log("Invalid Email", response.data);
         if (response.data) {
+      
             setInfo(response.data)
         } else {
           setError("Invalid Email");
@@ -27,7 +28,7 @@ function Forget() {
     <h2 style={{marginTop:"10px",borderTop:"3px solid #f0c14b",borderBottom:"3px solid #f0c14b",marginLeft:"80px",marginRight:"80px",padding:"15px",backgroundColor:"black",color:"white"}}>Recover Your Account</h2>
       <form>
         {Info ? (
-          <h5 className="text-success">
+          <h5 style={{color:"green",width:"90%",marginLeft:"auto",marginRight:"auto",padding:"10px",fontSize:"25px",textAlign:"center"}}>
             Go to Your provided Email to Reset your Password
           </h5>
         ) : (
