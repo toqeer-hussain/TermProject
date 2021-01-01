@@ -13,7 +13,7 @@ function ProceedToCheckout() {
   }, [])
   
 
-  return (
+  return (  <div style={{marginTop:"60px"}}>
     <div className="Proceed">
    
       <div className="Item">
@@ -41,7 +41,7 @@ function ProceedToCheckout() {
       <hr />
       <div><Payment /></div>
       
-    </div>
+    </div></div>
   );
 }
 

@@ -56,7 +56,9 @@ const [product, setproduct] = useState(null);
 
 
     return (
+      
       <div>
+      <div style={{marginTop:"75px"}}>
        <h2 style={{marginTop:"10px",borderTop:"3px solid #f0c14b",borderBottom:"3px solid #f0c14b",marginLeft:"80px",marginRight:"80px",padding:"15px",backgroundColor:"black",color:"white"}}>Product Detail</h2>
         
         <div className="row">
@@ -91,6 +93,7 @@ const [product, setproduct] = useState(null);
         Add To Cart
       </button>
            </div>
+        </div>
         </div>
         <div id="myModal" className="modal" style={openmodal?{display:"block"} :{display:"none"}}>
         <span className="close cursor" onClick={()=>setopenmodal(false)}>&times;</span>
@@ -130,7 +133,3 @@ const [product, setproduct] = useState(null);
 }
 
 export default LayoutDetail
-// <img  className="imgSet2" onClick={()=>
-//   {setopenmodal(true);setvalue(3)}}  src="https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY"/> 
-// <img  className="imgSet2" onClick={()=>
-//   {setopenmodal(true);setvalue(4)}} src="https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE"/> 

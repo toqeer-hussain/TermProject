@@ -20,6 +20,7 @@ function Checkout() {
 // console.log("Cart item value",product[0]?.product.ProductName)
 
   return (
+    <div style={{marginTop:"60px"}}>
     <div className="checkout">
     <div className="checkoutitem">
       <h3>Your Shopping Basket</h3>
@@ -39,7 +40,7 @@ function Checkout() {
      <hr/>
      </div>
       <Subtotal />
-    </div>
+    </div></div>
   );
 }
 

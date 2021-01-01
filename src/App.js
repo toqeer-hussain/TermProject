@@ -50,6 +50,7 @@ function App() {
       <div className="App ">
         <Switch>
           <Route exact path="/checkout">
+          <Nav/>
             {cart.length > 0  ? <Checkout /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/login">
@@ -92,7 +93,7 @@ function App() {
       
              
 
-             
+             <div style={{marginTop:"60px"}}>
               <div className="product_row">
            { product.length>0 && makeproduct(0,1,product)}
            </div>
@@ -120,7 +121,7 @@ function App() {
            
               <div className="product_row">
            { product.length>0 && makeproduct(14,16,product)}
-           </div>
+           </div></div>
           </Route>
         </Switch>
       </div>

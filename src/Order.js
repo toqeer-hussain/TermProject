@@ -48,6 +48,7 @@ let ODLIST=[]
               
 
     return (
+      <div style={{marginTop:"75px"}}>
         <div>
         <h2 style={{marginTop:"10px",borderTop:"3px solid #f0c14b",borderBottom:"3px solid #f0c14b",marginLeft:"80px",marginRight:"80px",padding:"15px",backgroundColor:"black",color:"white"}}>Order Detail</h2>
        
@@ -92,6 +93,7 @@ let ODLIST=[]
      </div> 
      
     })}
+       </div>
        </div>
         
     )

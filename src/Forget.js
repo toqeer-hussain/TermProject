@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import {initialState} from './reducer'
 function Forget() {
   const history = useHistory();
   const [Email, setEmail] = useState("");
@@ -10,7 +10,7 @@ function Forget() {
   const SendData = (e) => {
     e.preventDefault()
     axios
-      .post("http://localhost:5000/forget", { Email })
+      .post(`${initialState.baseUrl}/forget`, { Email })
       .then((response) => {
         console.log("Invalid Email", response.data);
         if (response.data) {

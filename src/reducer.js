@@ -29,9 +29,10 @@ const reducer = (state, action) => {
       case actionTypes.DEC:
         state?.cart?.filter((item,index)=>{
           if(item?.id==action?.id){
-            console.log(item.id,action.id)
+            if(item?.quantity>1)
+           { console.log(item.id,action.id)
               item.quantity=item?.quantity-1
-            return index
+            return index}
           }})
         return {
           ...state,
@@ -43,6 +44,7 @@ const reducer = (state, action) => {
 
         state?.cart?.filter((item,index)=>{
           if(item?.id==action?.id){
+            
             console.log(item.id,action.id)
               item.quantity=item?.quantity+1
             return index
