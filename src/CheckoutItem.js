@@ -36,7 +36,10 @@ function CheckoutItem({ image, id, price, title, rate ,btn,quantity}) {
       })
     }
     const decrease=()=>{
-      console.log("decclaaded")
+      dispatch({
+        type:"DEC",
+        id:id
+      })
     
     }
 

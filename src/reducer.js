@@ -27,20 +27,12 @@ const reducer = (state, action) => {
         user:""
       }
       case actionTypes.DEC:
-console.log("new ceck ",state.cart)
-        let newarry;
-        state.cart.map((item,index)=>{
-          if(item.id==action.id){
-            newarry=index;
-          
-          }
-        })
-        let obj=state.cart;
-        console.log("del In",obj[newarry].quantity)
-
-        obj[newarry].quantity=obj[newarry].quantity-1;
-        
-         console.log(" del qa",obj)
+        state?.cart?.filter((item,index)=>{
+          if(item?.id==action?.id){
+            console.log(item.id,action.id)
+              item.quantity=item?.quantity-1
+            return index
+          }})
         return {
           ...state,
         
@@ -49,34 +41,14 @@ console.log("new ceck ",state.cart)
 
 //         let newindex;
 
-        let value=state?.cart?.filter((item,index)=>{
+        state?.cart?.filter((item,index)=>{
           if(item?.id==action?.id){
             console.log(item.id,action.id)
               item.quantity=item?.quantity+1
             return index
           }})
-          console.log("new try",value)
-//         })
-//         let obj1=[...state?.cart]
-//         console.log("obj1 sklfns",obj1[newindex].quantity)
-// obj1[newindex].quantity=obj1[newindex].quantity+1
-
- 
-
-
-//         console.log("obj1",obj1[newindex].quantity)
-        // console.log(" inc before qa In",obj1[newindex]?.quantity)
-        //  obj1[newindex].quantity=obj1[newindex].quantity+1;
-        //  let dup={...obj1}
-  //  obj1.splice(newindex,1)
-        //  console.log("new arr",newarr2)
-        //  obj1.splice(newindex, 0);
-        //  console.log("inc qa In",obj1[newindex].quantity)
-        // console.log("after obj1",obj1[newindex].quantity) 
         return {
           ...state,
-          
-        
         }
         
 
