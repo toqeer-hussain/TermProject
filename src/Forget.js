@@ -10,9 +10,7 @@ function Forget() {
   const SendData = (e) => {
     e.preventDefault()
     axios
-      .post(`${initialState.baseUrl}/forget`, { Email },{headers:{
-        "Access-Control-Allow-Origin": "*"
-      }})
+      .post(`${initialState.baseUrl}/forget`, { Email })
       .then((response) => {
         console.log("Invalid Email", response.data);
         if (response.data) {
